@@ -12,6 +12,8 @@ Assuming you have jQuery in your project, include jquery.wysihtml5_size_matters.
 
 Initialize the plugin after initializing wysihtml5. You'll need to ensure the editor is loaded (i.e. in the DOM) before calling `wysihtml5_size_matters()`.
 
+**Important:** `wysihtml5_size_matters()` expects to be attached to the editor's iframe, available via `editor.composer.iframe`
+
 ```js
 var editor = new wysihtml5.Editor("wysiwyg", {
   toolbar:      "toolbarID"

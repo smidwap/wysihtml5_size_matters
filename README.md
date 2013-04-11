@@ -3,6 +3,9 @@ Because size does matter.
 
 With one simple plugin call, Wysihtml5 Size Matters makes your wysihtml5 editor automatically resize to fit the editor's content.
 
+## Demo
+You can view a demo of the plugin [here](http://smidwap.github.io/wysihtml5_size_matters/demo/index.html).
+
 ## Usage
 Assuming you have jQuery in your project, include jquery.wysihtml5_size_matters.js
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jquery.sizeMatters() Demo</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="../jquery.wysihtml5_size_matters.js"></script>
+  <script src="wysihtml5.js"></script>
+
+  <script>
+    $(function() {
+      var editor = new wysihtml5.Editor("wysiwyg", {
+        toolbar:      "toolbar"
+      });
+
+      editor.on('load', function() {
+        $(editor.composer.iframe).wysihtml5_size_matters();
+      });
+    });
+  </script>
+</head>
+<body>
+
+
+  <div id="toolbar" style="display: none;">
+    <a data-wysihtml5-command="bold" title="CTRL+B">bold</a> |
+    <a data-wysihtml5-command="italic" title="CTRL+I">italic</a>
+  </div>
+
+  <textarea id="wysiwyg"></textarea>
+
+</body>
+</html>

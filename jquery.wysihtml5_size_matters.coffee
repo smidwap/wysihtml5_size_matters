@@ -16,6 +16,7 @@
     addBodyStyles: ->
       @$body.css('overflow', 'hidden');
       @$body.css('min-height', 0);
+      @$body.css('height', 'auto');
 
     setupEvents: ->
       @$body.on 'keyup keydown paste change focus', => @adjustHeight()

@@ -1,12 +1,15 @@
 (($) ->
   class Wysihtml5SizeMatters
-    constructor: (iframe) ->
+    constructor: (iframe, options) ->
       @$iframe = $(iframe)
       @$body = @findBody()
 
       @addBodyStyles()
-      @setupEvents()
       @adjustHeight()
+      if options && options.useTimer
+        @startInterval()
+      else
+        @setupEvents()
 
     # Two styles on the 'body' tag are required to make this
     # autosizing technique work.
@@ -37,8 +40,26 @@
     findBody: ->
       @$iframe.contents().find('body')
 
-  $.fn.wysihtml5_size_matters = ->
-    @each ->
-      wysihtml5_size_matters = $.data(@, 'wysihtml5_size_matters')
-      wysihtml5_size_matters = $.data(@, 'wysihtml5_size_matters', new Wysihtml5SizeMatters(@)) unless wysihtml5_size_matters
+    startInterval: ->
+      _this = @
+      _this.intervalId = setInterval (() -> _this.adjustHeight()), 250
+      _this.intervalId
+
+    stopInterval: ->
+      clearInterval @intervalId if @intervalId
+
+
+  $.fn.wysihtml5_size_matters = (command, options)->
+    if command && !options
+      options = command
+
+    if command == "stopTimer"
+      @each ->
+        wysihtml5_size_matters = $.data(@, 'wysihtml5_size_matters')
+        if wysihtml5_size_matters
+          wysihtml5_size_matters.stopInterval
+    else
+      @each ->
+        wysihtml5_size_matters = $.data(@, 'wysihtml5_size_matters')
+        wysihtml5_size_matters = $.data(@, 'wysihtml5_size_matters', new Wysihtml5SizeMatters(@, options)) unless wysihtml5_size_matters
 )($)

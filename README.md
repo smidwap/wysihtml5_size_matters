@@ -27,3 +27,23 @@ editor.on('load', function() {
   $(editor.composer.iframe).wysihtml5_size_matters();
 });
 ```
+
+###Timer Option
+
+The wysihtml5 relies on an iframe with a `<body contenteditable="true"></body>`.  The `contenteditabletrue` attribute provides `keyup` and `keydown` events, but there is currently no `change` event in the HTML5 spec.  Support for a comparable `input` event is very limited at this time.  This means that if your application programmatically changes the contents of the editor, the default, event-driven behavior won't catch the event and the height won't adjust.  This can also happen to users who use OS utilities such as [TextExpander](http://smilesoftware.com/TextExpander/index.html).
+
+If your application needs to react to programmatically changing editor content, there is an option that uses `setInterval` instead of events to adjust the height.  If you pass in `useTimer: true`, the plugin will work this way.  Like so:
+
+```js
+editor.on('load', function() {
+  //Now the height will automatically adjust despite how editor's contents were changed
+  $(editor.composer.iframe).wysihtml5_size_matters({ useTimer: true });
+});
+```
+
+Note that if you use this option, you must stop the timer in order to prevent an interval leak:
+
+```js
+//clears the interval
+$(editor.composer.iframe).wysihtml5_size_matters("stopTimer");
+```
